@@ -1,1 +1,13 @@
-<p>header works!</p>
+
+<div class="header">
+  <div class="my-store-name">MyStore</div>
+  <div class="menu">
+    <a routerLink="">
+      <img src="../../../assets/Icons/home-icon.svg" alt="home-icon" />
+      <span>Home</span>
+    </a>
+    <fa-icon class="cart-shopping" [icon]="faCartShopping">
+    </fa-icon>
+    <div class="quantity">{{ quantityDisplayInCart() }}</div>
+  </div>
+</div>

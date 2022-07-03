@@ -20,4 +20,9 @@ describe('HeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('check if header has the correct content', () => {
+    const compiled = fixture.nativeElement as HTMLElement
+    expect(compiled.querySelector(".header")?.textContent).toContain('Home')
+  });
 });
