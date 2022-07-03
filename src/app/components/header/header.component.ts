@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons"
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -15,12 +16,14 @@ export class HeaderComponent implements OnInit {
   faCartShopping = faCartShopping
   quantity: number = 0
 
-  constructor() { }
-
+  constructor(private cart: CartService) {
+  }
+  
   ngOnInit(): void {
   }
-
+  
   quantityDisplayInCart(): string {
+    this.quantity = this.cart.cartQuantity()
     if(this.quantity > 9) {
       return "9+"
     } else {

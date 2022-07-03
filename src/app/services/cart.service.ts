@@ -5,14 +5,23 @@ import { Product } from '../types/Product.type';
   providedIn: 'root'
 })
 export class CartService {
+  static cartQuantity(): number {
+    throw new Error('Method not implemented.');
+  }
   cart: Product[] = []
-  constructor() { }
+  constructor() {}
 
   getProductsOfTheCart(): Product[] {
     return this.cart
   }
 
-  addToCart(product: Product) {
+  addToCart(product: Product, quantity: number): Product[] | number {
+    product.quantity = quantity
+    console.log(this.cart)
+    return this.cart.unshift(product)
+  }
 
+  cartQuantity(): number {
+    return this.cart.length
   }
 }
