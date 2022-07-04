@@ -1,7 +1,7 @@
 <div class="cart-panel">
   <div class="cart-container">
     <div class="empty-cart-message" *ngIf="isEmpty">The Card Is Empty😴😴</div>
-    <div class="cart-item" *ngFor="let cart of cartItems">
+    <div class="cart-item" *ngFor="let cart of cartItems$ | async">
       <img src="{{cart.url}}" />
       <div class="cart-item-details">
         <div style="margin-bottom: 15px; font-weight: bold; font-size: 18px;"> {{ cart.name }} </div>
@@ -12,7 +12,7 @@
         <fa-icon style="color: rgb(141, 63, 63); cursor: pointer;" [icon]="faTrushCan" (click)="removeFromTheCart(cart)"></fa-icon>
       </div>
     </div>
-    Total: ${{ dispalyTotal() }}
+    Total: ${{ total }}
   </div>
   <form class="form" #form="ngForm" (ngSubmit)="submitForm()">
     <div class="input-detail">Full Name</div>

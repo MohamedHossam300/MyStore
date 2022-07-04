@@ -1,36 +1,32 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { Product } from '../types/Product.type';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private cart = new BehaviorSubject<Product[]>([])
+  private cart: Product[] = []
+  private cart$ = new BehaviorSubject<Product[]>([])
 
   constructor() {}
 
-  getProductsOfTheCart(): Product[] {
-    return this.cart
+  getProductsOfTheCart(): Observable<Product[]> {
+    return this.cart$
   }
 
-  addToCart(product: Product, quantity: number): Observable<Product[]> | number {
+  addToCart(product: Product, quantity: number) {
     product.quantity = quantity
-    return this.cart.pipe(tap(currentList=> {
-      currentList.unshift(product)
-    }));
+    this.cart.unshift(product)
+    this.cart$.next(this.cart)
   }
 
-  cartQuantity(): Observable<Product[]> {
-    return this.cart.pipe(tap(currentList=> {
-      currentList.length
-    }));
+  cartQuantity(): Observable<number> {
+    return this.cart$.pipe(map(currentList => currentList.length))
   }
 
-  removeFromTheCart(product: Product): Observable<Product[]> {
-    return this.cart.pipe(tap(currentList=> {
-      this.cart = currentList.filter(p => p.id !== product.id)
-      return this.cart
-    }));
+  removeFromTheCart(product: Product) {
+    this.cart= this.cart.filter(p => p.id !== product.id)
+    return this.cart$.next(this.cart)
   }
 }

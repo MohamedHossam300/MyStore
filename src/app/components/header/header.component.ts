@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons"
+import { map, Observable } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
@@ -10,20 +11,13 @@ import { CartService } from 'src/app/services/cart.service';
 
 export class HeaderComponent implements OnInit {
   faCartShopping = faCartShopping
-  quantity: number = 0
+  quantity$: Observable<string>
 
   constructor(private cart: CartService) {
+    this.quantity$ = this.cart.cartQuantity().pipe(map(quantity => quantity > 9 ? "9+" : quantity.toString()))
   }
   
   ngOnInit(): void {
   }
-  
-  quantityDisplayInCart(): string {
-    this.quantity = this.cart.cartQuantity()
-    if(this.quantity > 9) {
-      return "9+"
-    } else {
-      return <string>(<unknown>this.quantity)
-    }
-  }
+
 }

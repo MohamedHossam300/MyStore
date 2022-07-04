@@ -1,10 +1,11 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 import { Product } from 'src/app/types/Product.type';
 import { SubmitForm } from 'src/app/types/SubmitForm.type';
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons"
 import { SubmitFormService } from 'src/app/services/submit-form.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -14,7 +15,7 @@ import { SubmitFormService } from 'src/app/services/submit-form.service';
 
 export class CartComponent implements OnInit {
   faTrushCan = faTrashCan
-  cartItems: Product[] = []
+  cartItems$: Observable<Product[]>
   total: number = 0
   isEmpty: boolean = true
   fullName: string = ""
@@ -25,25 +26,17 @@ export class CartComponent implements OnInit {
       private cart: CartService,
       private order: SubmitFormService,
       private router: Router,
-    ) {  }
+    ) { 
+      this.cartItems$ = this.cart.getProductsOfTheCart()
 
-  ngOnInit(): void {
-    this.cartItems = this.cart.getProductsOfTheCart()
-    
-    if (this.cartItems.length === 0) {
-      this.isEmpty = true
-    } else {
-      this.isEmpty = false
+      this.cartItems$.subscribe(items => {
+        this.isEmpty = items.length === 0
+        this.total = items.reduce((acc, curr) => acc + curr.price * (curr as any).quantity, 0)
+      })
     }
-  }
   
-  dispalyTotal(): number {
-    this.cartItems.map(item => {
-      this.total += <number>(<unknown>item.quantity) * <number>(<unknown>item.price)
-    })
-    return <number>(<unknown>this.total)
-  }
-  
+  ngOnInit(): void { }
+
   removeFromTheCart = (product: Product) => {
     this.cart.removeFromTheCart(product)
   }
