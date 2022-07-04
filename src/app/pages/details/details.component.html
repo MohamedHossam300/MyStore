@@ -1,0 +1,15 @@
+<div class="detail-container">
+  <img src="{{ product.url }}" alt="{{ product.name }}" />
+  <div class="detail-item">
+    <span style="font-weight: bold; font-size: 30px;"> {{ product.name }} </span>
+    <span style="font-size: 20px; margin-top: 5px;"> ${{ product.price }} </span>
+    <span style="font-size: 22px; margin-top: 5px;"> {{ product.description }} </span>
+    <select class="select-input" #teams (change)="onSelected(teams.value)">
+      <option *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" value="{{ i }}">{{ i }}</option>
+    </select>
+    <div class="add-to-card-button" (click)="addToCart()">Add To Card</div>
+    <a class="back-link" routerLink="">Back To Product List
+      <fa-icon class="cart-shopping" [icon]="faChevronRight"></fa-icon>
+    </a>
+  </div>
+</div>
