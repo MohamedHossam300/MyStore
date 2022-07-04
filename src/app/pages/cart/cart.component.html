@@ -9,11 +9,19 @@
         <div>
           Amount: <input style="margin-bottom: 15px; width: 40px; text-align: center;" value="{{ cart.quantity }}" type="number" />
         </div>
+        <fa-icon style="color: rgb(141, 63, 63); cursor: pointer;" [icon]="faTrushCan" (click)="removeFromTheCart(cart)"></fa-icon>
       </div>
     </div>
     Total: ${{ dispalyTotal() }}
   </div>
-  <!-- <form class="form">
-    <input style="">
-  </form> -->
+  <form class="form" #form="ngForm" (ngSubmit)="submitForm()">
+    <div class="input-detail">Full Name</div>
+    <input class="input" [(ngModel)]="fullName" name="fullName" placeholder="(minimum 3 characters)" minlength="3" required />
+    <div class="input-detail">Address</div>
+    <input class="input" [(ngModel)]="address" name="address" placeholder="(minimum 6 characters)" minlength="6" required />
+    <div class="input-detail">Credit card number</div>
+    <input class="input" [(ngModel)]="creditCard" name="creditCard" placeholder="(16-digit number)" maxlength="16" required />
+    <div style="font-size: 13px;">We'll never share your payment details with any else</div>
+    <input class="submit-input" type="submit" value="Submit" [disabled]="form.invalid">
+  </form>
 </div>

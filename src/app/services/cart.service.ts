@@ -5,9 +5,6 @@ import { Product } from '../types/Product.type';
   providedIn: 'root'
 })
 export class CartService {
-  static cartQuantity(): number {
-    throw new Error('Method not implemented.');
-  }
   cart: Product[] = []
   constructor() {}
 
@@ -23,5 +20,10 @@ export class CartService {
 
   cartQuantity(): number {
     return this.cart.length
+  }
+
+  removeFromTheCart(product: Product): Product[] {
+    this.cart = this.cart.filter(p => p.id !== product.id)
+    return this.cart
   }
 }

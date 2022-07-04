@@ -9,10 +9,6 @@ import { CartService } from 'src/app/services/cart.service';
 })
 
 export class HeaderComponent implements OnInit {
-  querySelector(header: any): any {
-    throw new Error('Method not implemented.');
-  }
-
   faCartShopping = faCartShopping
   quantity: number = 0
 

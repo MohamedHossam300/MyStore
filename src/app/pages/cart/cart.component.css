@@ -2,12 +2,20 @@
   display: flex;
   flex-direction: row;
   margin: 100px 50px 0 50px;
+  justify-content: space-around;
+  padding: 0 25px;
+}
+
+@media (max-width: 780px) {
+  .cart-panel {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .cart-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   margin-top: 64px;
 }
 
@@ -42,4 +50,30 @@ img {
 .form {
   right: 20px;
   margin-bottom: 12px;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-detail {
+  margin-bottom: 5px;
+}
+
+.input {
+  width: 265px;
+  height: 25px;
+  margin-bottom: 15px;
+}
+
+.submit-input {
+  width: 140px;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  background-color: #33B5E5;
+  font-weight: bold;
+  color: #FFFFFF;
+  font-size: 15px;
+  margin-top: 20px;
+  cursor: pointer;
 }
