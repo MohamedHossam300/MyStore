@@ -1,17 +1,8 @@
 <div class="cart-panel">
+  
   <div class="cart-container">
     <div class="empty-cart-message" *ngIf="isEmpty">The Card Is Empty😴😴</div>
-    <div class="cart-item" *ngFor="let cart of cartItems$ | async">
-      <img src="{{cart.url}}" />
-      <div class="cart-item-details">
-        <div style="margin-bottom: 15px; font-weight: bold; font-size: 18px;"> {{ cart.name }} </div>
-        <div style="margin-bottom: 15px; font-size: 16px;"> ${{ cart.price }} </div>
-        <div>
-          Amount: <input style="margin-bottom: 15px; width: 40px; text-align: center;" value="{{ cart.quantity }}" type="number" />
-        </div>
-        <fa-icon style="color: rgb(141, 63, 63); cursor: pointer;" [icon]="faTrushCan" (click)="removeFromTheCart(cart)"></fa-icon>
-      </div>
-    </div>
+    <app-cart-items *ngFor="let cart of cartItems$ | async" [cart]="cart" (updateQuantity)="updateQuantity($event)"></app-cart-items>
     Total: ${{ total }}
   </div>
   <form class="form" #form="ngForm" (ngSubmit)="submitForm()">

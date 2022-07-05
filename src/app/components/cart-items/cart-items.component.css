@@ -1,0 +1,24 @@
+.cart-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 64px;
+}
+
+.cart-item {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+
+img {
+  width: 100px;
+  border-radius: 10px;
+}
+
+.cart-item-details {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: left;
+  margin-left: 80px;
+}

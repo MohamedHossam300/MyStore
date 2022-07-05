@@ -29,4 +29,9 @@ export class CartService {
     this.cart= this.cart.filter(p => p.id !== product.id)
     return this.cart$.next(this.cart)
   }
+
+  updateQuantity(id: number, newQuantity: number) {
+    this.cart.filter(c => c.id === id).map(c => c.quantity = newQuantity)
+    this.cart$.next(Object.assign({}, this.cart));
+  }
 }

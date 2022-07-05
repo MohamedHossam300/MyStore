@@ -13,6 +13,7 @@ import { DetailsComponent } from './pages/details/details.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ConiformComponent } from './pages/coniform/coniform.component';
+import { CartItemsComponent } from './components/cart-items/cart-items.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ConiformComponent } from './pages/coniform/coniform.component';
     DetailsComponent,
     CartComponent,
     PageNotFoundComponent,
-    ConiformComponent
+    ConiformComponent,
+    CartItemsComponent
   ],
   imports: [
     BrowserModule,

@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 import { Product } from 'src/app/types/Product.type';
 import { SubmitForm } from 'src/app/types/SubmitForm.type';
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons"
 import { SubmitFormService } from 'src/app/services/submit-form.service';
 import { Observable } from 'rxjs';
 
@@ -14,13 +13,14 @@ import { Observable } from 'rxjs';
 })
 
 export class CartComponent implements OnInit {
-  faTrushCan = faTrashCan
   cartItems$: Observable<Product[]>
   total: number = 0
+  newQuantity: number = this.total
   isEmpty: boolean = true
   fullName: string = ""
   address: string = ""
   creditCard: number = 0
+  idItemThatUpdated: number = 0
   
   constructor(
       private cart: CartService,
@@ -33,14 +33,17 @@ export class CartComponent implements OnInit {
         this.isEmpty = items.length === 0
         this.total = items.reduce((acc, curr) => acc + curr.price * (curr as any).quantity, 0)
       })
+
+      console.log(this.newQuantity)
     }
   
   ngOnInit(): void { }
-
-  removeFromTheCart = (product: Product) => {
-    this.cart.removeFromTheCart(product)
-  }
   
+  updateQuantity(value: number) {
+    this.newQuantity = value
+    this.cart.updateQuantity(this.idItemThatUpdated, this.newQuantity)
+  }
+
   submitForm(): void {
     const form: SubmitForm = {
       fullName: this.fullName,
