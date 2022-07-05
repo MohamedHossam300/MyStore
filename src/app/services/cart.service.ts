@@ -31,8 +31,10 @@ export class CartService {
   }
 
   updateQuantity(product: Product, newQuantity: number) {
-    const i = this.cart.indexOf(product)
-    this.cart[i].quantity = newQuantity
-    return this.cart$.next(this.cart)
+    const index = this.cart.findIndex(p => p.id === product.id);
+    if (index === -1) return;
+
+    this.cart[index].quantity = newQuantity;
+    this.cart$.next(this.cart);
   }
 }
