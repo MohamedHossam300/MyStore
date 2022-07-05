@@ -14,34 +14,38 @@ import { Observable } from 'rxjs';
 
 export class CartComponent implements OnInit {
   cartItems$: Observable<Product[]>
-  total: number = 0
-  newQuantity: number = this.total
+  total: string = ""
   isEmpty: boolean = true
   fullName: string = ""
   address: string = ""
   creditCard: number = 0
-  idItemThatUpdated: number = 0
-  
+  itemThatUpdated: Product
+
   constructor(
       private cart: CartService,
       private order: SubmitFormService,
       private router: Router,
-    ) { 
+    ) {
+      this.itemThatUpdated = {
+        name: "",
+        id: 0,
+        price: 0,
+        url: "",
+        description: ""
+      }
       this.cartItems$ = this.cart.getProductsOfTheCart()
 
       this.cartItems$.subscribe(items => {
         this.isEmpty = items.length === 0
-        this.total = items.reduce((acc, curr) => acc + curr.price * (curr as any).quantity, 0)
+        this.total = (items.reduce((acc, curr) => acc + curr.price * (curr as any).quantity, 0)).toFixed(2)
       })
 
-      console.log(this.newQuantity)
     }
-  
+
   ngOnInit(): void { }
-  
+
   updateQuantity(value: number) {
-    this.newQuantity = value
-    this.cart.updateQuantity(this.idItemThatUpdated, this.newQuantity)
+    this.cart.updateQuantity(this.itemThatUpdated, value)
   }
 
   submitForm(): void {
@@ -49,7 +53,7 @@ export class CartComponent implements OnInit {
       fullName: this.fullName,
       address: this.address,
       creditCard: this.creditCard,
-      total: this.total
+      total: <number>(<unknown>this.total)
     }
 
     this.order.addOrder(form)

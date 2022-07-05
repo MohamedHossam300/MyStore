@@ -17,12 +17,11 @@ export class CartItemsComponent implements OnInit {
     url: ""
   }
   @Output() updateQuantity: EventEmitter<number> = new EventEmitter
+  @Output() product: EventEmitter<Product> = new EventEmitter
 
   faTrushCan = faTrashCan
-  newQuantity: any = this.cart.quantity
 
-  constructor(private cartService: CartService,) {
-    this.updateQuantity.emit(this.newQuantity)
+  constructor(private cartService: CartService) {
   }
 
   ngOnInit(): void {
@@ -30,6 +29,11 @@ export class CartItemsComponent implements OnInit {
 
   removeFromTheCart = (product: Product) => {
     this.cartService.removeFromTheCart(product)
+  }
+
+  updateQuatity(value: number, product: Product){
+    this.updateQuantity.emit(value)
+    this.product.emit(product)
   }
 
 }

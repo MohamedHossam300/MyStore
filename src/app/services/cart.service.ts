@@ -30,8 +30,9 @@ export class CartService {
     return this.cart$.next(this.cart)
   }
 
-  updateQuantity(id: number, newQuantity: number) {
-    this.cart.filter(c => c.id === id).map(c => c.quantity = newQuantity)
-    this.cart$.next(Object.assign({}, this.cart));
+  updateQuantity(product: Product, newQuantity: number) {
+    const i = this.cart.indexOf(product)
+    this.cart[i].quantity = newQuantity
+    return this.cart$.next(this.cart)
   }
 }

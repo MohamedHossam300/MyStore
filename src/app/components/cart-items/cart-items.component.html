@@ -5,7 +5,7 @@
       <div style="margin-bottom: 15px; font-weight: bold; font-size: 18px;"> {{ cart.name }} </div>
       <div style="margin-bottom: 15px; font-size: 16px;"> ${{ cart.price }} </div>
       <div>
-        Amount: <input style="margin-bottom: 15px; width: 40px; text-align: center;" min="1" max="10" value="{{ cart.quantity }}" type="number" name="newQuantity" [(ngModel)]="newQuantity" />
+        Amount: <input style="margin-bottom: 15px; width: 40px; text-align: center;" min="1" max="10" value="{{ cart.quantity }}" type="number" name="newQuantity" [(ngModel)]="cart.quantity" (ngModelChange)="updateQuatity($event, cart)" />
       </div>
       <fa-icon style="color: rgb(141, 63, 63); cursor: pointer;" [icon]="faTrushCan" (click)="removeFromTheCart(cart)"></fa-icon>
     </div>

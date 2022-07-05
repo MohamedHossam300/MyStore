@@ -1,8 +1,8 @@
 <div class="cart-panel">
-  
+
   <div class="cart-container">
     <div class="empty-cart-message" *ngIf="isEmpty">The Card Is Empty😴😴</div>
-    <app-cart-items *ngFor="let cart of cartItems$ | async" [cart]="cart" (updateQuantity)="updateQuantity($event)"></app-cart-items>
+    <app-cart-items *ngFor="let cart of cartItems$ | async" [cart]="cart" (updateQuantity)="updateQuantity($event)" (product)="itemThatUpdated = $event"></app-cart-items>
     Total: ${{ total }}
   </div>
   <form class="form" #form="ngForm" (ngSubmit)="submitForm()">
